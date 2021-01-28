@@ -1,0 +1,37 @@
+module exp6_1(clk,KEY,data,data_out);
+	input clk;
+	input [2:0]	KEY;
+	input [7:0]	data;
+	output reg [7:0] data_out;
+	always @(posedge clk)
+	begin
+	if(KEY==3'b000)//clear
+		data_out<=8'00000000;	
+	else if(KEY==3'b001)//set
+		begin
+		integer i;
+		for(i=0;i<8;i=i+1)
+		data_out[i]<=data[i];
+		end
+	else if(KEY==3'b010)//shr
+		data_out<={0,data_out[7:1]};
+	else if(KEY==3'b011)//shl
+		data_out<={data_out[6:0],0};	
+	else if(KEY==3'b100)//sar
+		data_out<={data_out[7],data_out[7:1]};
+	else if(KEY==3'b101)//in&out
+		begin
+		integer i;
+		for(i=0;i<8;i=i+1)
+		data_out[i]<=data[0];				
+		end
+	else if(KEY==3'b110)//loop right
+		begin
+		data_out<={data_out[0],data_out[7:1]};
+		end
+	else//loop left
+		begin
+		data_out<={data_out[6:0],data_out[7]};		
+		end
+	end
+endmodule

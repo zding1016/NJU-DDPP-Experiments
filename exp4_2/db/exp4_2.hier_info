@@ -1,0 +1,27 @@
+|exp4_2
+clk => clk.IN2
+in_d => in_d.IN2
+en => en.IN2
+out_d1 << synchro:A.out_d
+out_d2 << asynchro:B.out_d
+clr => clr.IN2
+
+
+|exp4_2|synchro:A
+clk => out_d~reg0.CLK
+in_d => out_d.DATAB
+en => out_d.OUTPUTSELECT
+en => out_d.OUTPUTSELECT
+out_d <= out_d~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clr => out_d.OUTPUTSELECT
+
+
+|exp4_2|asynchro:B
+clk => out_d~reg0.CLK
+in_d => out_d~reg0.DATAIN
+en => out_d.OUTPUTSELECT
+en => out_d~reg0.ENA
+out_d <= out_d~reg0.DB_MAX_OUTPUT_PORT_TYPE
+clr => out_d~reg0.ALOAD
+
+

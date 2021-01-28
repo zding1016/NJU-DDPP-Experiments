@@ -1,0 +1,80 @@
+module GameUI(
+	input clk,                  //50MHz
+	input [4:0] h_ascii, 	    //20*30游戏侧边栏横坐标
+	input [4:0] v_ascii,        //20*30游戏侧边栏纵坐标
+	input [23:0] username,      //游戏玩家名
+	input [3:0] life,           //生命值
+	input [9:0] score,          //游戏分数
+	input [9:0] target,         //目标分数
+	input [9:0] speed,          //字符下滑速度
+	input GameMode,             //游戏模式（无尽/生存）
+	
+	output reg [7:0] curASCII	 //当前需要显示的ASCII
+	);
+	
+   
+  //将二维地址转换为一维的线性地址
+  //相当于：v_ascii * 20 + h_ascii 使用移位减少运算时间
+  wire [11:0] ROM_addr;     //20*30侧边栏地址
+  wire [7:0] romASCII;        //20*30ROM中读出的数据
+  assign ROM_addr = (v_ascii << 4) + (v_ascii << 2) + h_ascii; //20*30侧边栏地址
+  GameInfo my_GameInfo(ROM_addr, clk, romASCII); //读取侧边栏中当前字符的ASCII
+
+  //剩余生命次数
+  wire [7:0] ASCII_life;
+  assign ASCII_life = (!GameMode) ? (8'h02) : (life + 8'h30); //无穷/有限
+
+  //计算得分各个位的ASCII
+  wire [7:0] ASCII_score0; //个位
+  wire [7:0] ASCII_score1; //十位
+  wire [7:0] ASCII_score2; //百位
+  assign ASCII_score0 = (score % 10) + 8'h30;
+  assign ASCII_score1 = ((score / 10) % 10) + 8'h30;
+  assign ASCII_score2 = (score / 100) + 8'h30;
+
+  //目标得分各个位的ASCII
+  wire [7:0] ASCII_target0; //个位
+  wire [7:0] ASCII_target1; //十位
+  wire [7:0] ASCII_target2; //百位
+  assign ASCII_target0 = (target % 10) + 8'h30;
+  assign ASCII_target1 = ((target / 10) % 10) + 8'h30;
+  assign ASCII_target2 = (target / 100) + 8'h30;
+
+  //下落速度值各个位的ASCII
+  wire [7:0] ASCII_speed0; //个位
+  wire [7:0] ASCII_speed1; //十位
+  wire [7:0] ASCII_speed2; //百位
+  assign ASCII_speed0 = (speed % 10) + 8'h30;
+  assign ASCII_speed1 = ((speed / 10) % 10) + 8'h30;
+  assign ASCII_speed2 = (speed / 100) + 8'h30;
+
+
+always @(*)
+begin
+   case(ROM_addr)
+   //username
+   12'h0e4: curASCII = username[7:0];
+   12'h0e6: curASCII = username[15:8];
+   12'h0e8: curASCII = username[23:16];
+   //Life
+   12'h138: curASCII = ASCII_life;
+   //score
+   12'h199: curASCII = ASCII_score2;
+   12'h19a: curASCII = ASCII_score1;
+   12'h19b: curASCII = ASCII_score0;
+   //target:
+   12'h211: curASCII = ASCII_target2;
+   12'h212: curASCII = ASCII_target1;
+   12'h213: curASCII = ASCII_target0;
+   //speed:
+   12'h238: curASCII = ASCII_speed2;
+   12'h239: curASCII = ASCII_speed1;
+   12'h23a: curASCII = ASCII_speed0;
+
+   //others
+   default: curASCII = romASCII;
+   
+	endcase
+end
+
+endmodule

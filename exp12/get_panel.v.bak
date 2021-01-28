@@ -1,0 +1,586 @@
+/*输入参量：
+键盘数据 ps_data；8位；需要给的数值是键盘输出处理后的“真实”键码， 因为本模块中直接使用的，未做判断
+失败标志 fail_en；1位	1有效
+成功标志 succ_en； 	1位	1有效
+驱动时钟 clk； 	1位
+记录当前行显示的第x_now个字符，x_now=h_addr/9 x_now;	 10位
+记录目前的字符行数，y_now=v_addr/16 y_now;	 10位
+
+输出参量：
+当前模式 mode_select；2位	10 为无尽； 11为闯关；00为开始界面；01为输入用户名界面
+关卡/难度 stage_difficulty_select；	5位；十进制数值即关卡/难度；零为无效输出
+游戏开始标志 start_flag；		1位；1即游戏开始；0即游戏不在进行中
+当前ascii值 ascii_data； 	8位；
+mode 1位；为1则为闯关模式，0为无尽模式
+
+界面切换：
+按提示顺序操作，则顺序切换界面；
+成功——回到闯关的选关界面；
+无论是闯关模式的选关界面还是无尽模式的难度选择界面都可以通过按某个键（Backspace）回到开始界面；
+失败——回到闯关模式的选关界面/无尽模式的难度选择界面
+*/
+
+module Interface_Change(
+	ps_data,fail_en,succ_en,
+	mode_select,
+	stage_difficulty_select,
+	start_flag,
+	clk,
+	ascii_data,
+	reset_n,
+	x_now,y_now,
+	Username,
+	color,
+	mode,
+	keyReady
+	);
+	
+input [7:0] ps_data;//键盘传入的键码，未经转为ascii码
+input fail_en;
+input succ_en;
+input clk;
+input reset_n;
+input [9:0] x_now;//记录当前行显示的第x_now个字符，x_now=h_addr/9 x_now;	 10位
+input [9:0] y_now;//记录目前的字符行数，y_now=v_addr/16 y_now;	 10位
+input keyReady;
+
+output reg [1:0] mode_select;
+output reg [3:0] stage_difficulty_select;
+output reg start_flag;
+output reg [23:0]Username;//记录输入的用户名，最大长度为三位
+output reg [7:0] ascii_data;//当前的ascii码值
+output reg [23:0] color;
+//output reg [2:0] color;
+output mode;
+
+reg [7:0] scanNode2;
+reg is_in1=0;
+reg is_in2=0;
+
+wire [15:0] addr;//记录寄存器中的地址
+wire [15:0] write_addr;//记录写入用户名的地址
+wire [7:0] t_ascii_1;
+wire [15:0] addr_2;
+wire [7:0] ascii_data_2;
+
+reg [15:0] offset;//记录切换不同界面的偏移量
+reg [1:0] temp_mode_select;//用于用户名输入界面的暂存
+reg [2:0] count;//上限为3，记录当前输入用户名第几个字符
+reg temp_fail_en;
+reg temp_succ_en;
+reg username_flag;
+reg lock_flag;
+reg [7:0] ascii_out;
+reg temp_keyReady;
+	
+Interfaces inter(
+	.address(addr),
+	.clock(clk),
+	.q(ascii_data_2)
+	);
+	
+
+assign addr = x_now + y_now*70 + offset;
+assign addr_2 = x_now + y_now*70;
+assign mode=mode_select%2;
+
+always @ (posedge clk or negedge reset_n)
+begin
+	if(!reset_n)
+	begin
+		mode_select=0;
+		stage_difficulty_select=0;
+		start_flag=0;
+		scanNode2=0;
+		temp_mode_select=0;//用于用户名输入界面的暂存
+		count=0;//上限为3，记录当前输入用户名第几个字符
+		temp_fail_en=0;
+		temp_succ_en=0;
+		lock_flag=1;
+	end
+	else
+	begin
+		if(ps_data==scanNode2)
+			;
+		else
+		begin
+			begin
+				if(fail_en==1'b1)//游戏失败
+				begin
+					lock_flag=1;
+					start_flag=1'b0;
+					temp_fail_en=fail_en;
+					if(mode_select==2'b11)//闯关模式
+					begin
+						if(ps_data==8'h66)
+						begin
+							mode_select = 2'b0;
+							stage_difficulty_select = 4'b0;
+							//temp_fail_en=1'b0;
+						end
+						else if(ps_data==8'h5a)
+						begin
+							mode_select=2'b11;
+							stage_difficulty_select=4'b0;
+							//temp_fail_en=1'b0;
+						end
+						else
+							;
+					end
+					else if(mode_select==2'b10)//无尽模式
+					begin
+						if(ps_data==8'h66)
+						begin
+							mode_select=2'b0;
+							stage_difficulty_select=4'b0;
+							//temp_fail_en=1'b0;
+						end
+						else
+							;
+					end
+					else//不应该出现的状态
+					begin
+						mode_select=2'b0;
+						stage_difficulty_select=4'b0;
+						//temp_fail_en=1'b0;
+					end
+				end
+				else if(succ_en==1'b1)//游戏成功
+				begin//只能是闯关模式
+					lock_flag=1;
+					start_flag=1'b0;
+					temp_succ_en=succ_en;
+					if(ps_data==8'h66)
+					begin
+						mode_select = 2'b0;
+						stage_difficulty_select = 4'b0;
+						//temp_succ_en=1'b0;
+					end
+					else if(ps_data==8'h5a)
+					begin
+						mode_select = 2'b11;
+						//temp_succ_en=1'b0;
+					end
+					else
+						;
+				end
+				else if(mode_select==2'b10&&(lock_flag==1)&&temp_fail_en==0&&temp_succ_en==0)//无尽模式难度选择界面
+				begin
+					case(ps_data)
+					8'h66 :
+						begin 
+							stage_difficulty_select = 4'b0;
+							start_flag = 1'b0;
+							mode_select=2'b0;
+						end
+					8'h16 :
+						begin 
+							stage_difficulty_select = 4'h1;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h1e :
+						begin 
+							stage_difficulty_select = 4'h2;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h26 :
+						begin 
+							stage_difficulty_select = 4'h3;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					default :
+						begin 
+							stage_difficulty_select = 4'h0;
+							start_flag = 1'b0;
+						end
+					endcase
+				end
+				else if(mode_select==2'b11&&(lock_flag==1)&&temp_fail_en==0&&temp_succ_en==0)//闯关模式选关界面
+				begin
+					case(ps_data)
+					8'h66 :
+						begin 
+							stage_difficulty_select = 4'h0;
+							start_flag = 1'b0;
+							mode_select=2'b0;
+						end
+					8'h16 :
+						begin 
+							stage_difficulty_select = 4'h1;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h1e :
+						begin 
+							stage_difficulty_select = 4'h2;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h26 :
+						begin 
+							stage_difficulty_select = 4'h3;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h25 :
+						begin 
+							stage_difficulty_select = 4'h4;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h2e :
+						begin 
+							stage_difficulty_select = 4'h5;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h36 :
+						begin 
+							stage_difficulty_select = 4'h6;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h3d :
+						begin 
+							stage_difficulty_select = 4'h7;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					8'h3e :
+						begin 
+							stage_difficulty_select = 4'h8;
+							start_flag = 1'b1;
+							lock_flag=0;
+						end
+					default :
+						begin 
+							stage_difficulty_select = 4'h0;
+							start_flag = 1'b0;
+						end
+					endcase
+				end
+				else if(mode_select==2'b0&&(lock_flag==1)&&temp_fail_en==0&&temp_succ_en==0)//开始界面
+				begin
+					if(ps_data==8'h16)
+					begin
+						temp_mode_select=2'b10;
+						mode_select=2'b1;
+					end
+					else if(ps_data==8'h1e)
+					begin
+						temp_mode_select=2'b11;
+						mode_select=2'b1;
+					end
+					else
+						;
+					username_flag=0;
+				end
+				else if(lock_flag==1&&temp_fail_en==0&&temp_succ_en==0)//输入用户名界面
+				begin
+					if(ps_data==8'h5a)
+					begin//实现用户名输入
+						mode_select=temp_mode_select;
+					end
+					else
+						;
+				end
+				else
+					;
+			end
+		
+		
+			begin
+				if(mode_select==2'b1)
+				begin
+					scan2asc(1,0,ps_data,ascii_out);
+			//		if(ps_data!=8'h5a&&scanNode2==8'hf0&&(username_flag==1))
+				if(ps_data!=8'h5a&&username_flag==1&&temp_keyReady==0&&keyReady==1&&is_in1==0)
+					is_in1=1;
+				else if(ps_data!=8'h5a&&username_flag==1&&temp_keyReady==0&&keyReady==1&&is_in1==1)
+					begin
+						if(count<3'b11)
+						begin
+							if(count==3'b0)
+								Username[7:0]=ascii_out;
+							else if(count==3'b1)
+								Username[15:8]=ascii_out;
+							else if(count==3'b10)
+								begin Username[23:16]=ascii_out;is_in1=0;end
+							else
+								;
+						end
+						else
+						begin
+							username_flag=0;
+							count=0;
+							Username[7:0]=ascii_out;
+						end
+						count = count + 1;
+					end
+					else
+						username_flag=1;
+				end
+			end
+		
+			begin
+				if(temp_fail_en==1'b1)
+				begin
+					//if(temp_keyReady==0&&keyReady==1&&ps_data==8'h66)
+					//if(ps_data==8'h66)
+					if(ps_data==8'h66||ps_data==8'h5a)
+						temp_fail_en=1'b0;
+					offset=16'h20d0;//失败界面
+				end
+				else if(temp_succ_en==1'b1)
+				begin
+					//if(temp_keyReady==0&&keyReady==1&&(ps_data==8'h66||ps_data==8'h5a))
+					if(ps_data==8'h66||ps_data==8'h5a)
+						temp_succ_en=1'b0;
+					offset=16'h2904;//成功界面
+				end
+				else
+				begin
+					if(mode_select==2'b11)
+						offset=16'h1068;//无尽模式
+					else if(mode_select==2'b10)
+						offset=16'h834;//闯关模式
+					else if(mode_select==2'b0)
+						offset=16'h0;//开始界面
+					else
+						offset=16'h189c;//输入用户名
+				end
+			end
+			
+			temp_keyReady=keyReady;
+		end
+		//scanNode2=ps_data;
+	end
+end
+
+
+//用于修改显示的用户名
+always @ (addr_2)
+begin
+	if(mode_select==2'b1)
+	begin
+	case(addr_2)
+		16'h480:
+		begin
+			ascii_data=Username[7:0];
+		end
+		16'h482:
+		begin
+			ascii_data=Username[15:8];
+		end
+		16'h484:
+		begin
+			ascii_data=Username[23:16];
+		end
+		default:
+		begin
+			ascii_data=ascii_data_2;
+		end
+	endcase
+	end
+	else
+		ascii_data=ascii_data_2;
+end
+
+//红色 #FF0000 
+//橙色 #FF7F00
+//黄色 #FFFF00 
+//绿色 #00FF00 
+//青色 #00FFFF 
+//蓝色 #0000FF
+//紫色 #8B00FF
+
+always @ (clk)//每行的颜色都不一样
+begin
+	if(y_now%7==0)
+		color=24'hFF0000;//color=24'hbbffff;
+	else if(y_now%7==1)
+		color=24'hFF7F00;//color=24'haeeeee;
+	else if(y_now%7==2)
+		color=24'hFFFF00;//color=24'h00ffff;
+	else if(y_now%7==3)
+		color=24'h00FF00;//color=24'h00eeee;
+	else if(y_now%7==4)
+		color=24'h00FFFF;//color=24'h00f5ff;
+	else if(y_now%7==5)
+		color=24'h0000FF;//color=24'h87ceff;
+	else if(y_now%7==6)
+		color=24'h8B00FF;//color=24'h7ec0ee;
+end
+
+task scan2asc;//将扫描码翻译成对应的ASCII码
+	input shift_en;
+	input capsLock;
+	input [7:0] data;
+	output reg [7:0] ascii_out;
+begin
+	if(shift_en)//shift按下
+	begin
+		case(data)
+		8'h01 :ascii_out =8'h5F ;//'_'
+		8'h76 :ascii_out =8'h1b ;
+		8'h05 :ascii_out =8'h70 ;
+		8'h06 :ascii_out =8'h71 ;
+		8'h04 :ascii_out =8'h72 ;
+		8'h0c :ascii_out =8'h73 ;
+		8'h03 :ascii_out =8'h74 ;
+		8'h0b :ascii_out =8'h75 ;
+		8'h83 :ascii_out =8'h76 ;
+		8'h0a :ascii_out =8'h77 ;
+		//8'h01 :ascii_out =8'h78 ;
+		8'h09 :ascii_out =8'h79 ;
+		8'h78 :ascii_out =8'h7a ;
+		8'h07 :ascii_out =8'h7b ;
+		8'h0e :ascii_out =8'h7e ;
+		8'h16 :ascii_out =8'h21 ;
+		8'h1e :ascii_out =8'h40 ;
+		8'h26 :ascii_out =8'h23 ;
+		8'h25 :ascii_out =8'h24 ;
+		8'h2e :ascii_out =8'h25 ;
+		8'h36 :ascii_out =8'h5e ;
+		8'h3d :ascii_out =8'h26 ;
+		8'h3e :ascii_out =8'h2a ;
+		8'h46 :ascii_out =8'h28 ;
+		8'h45 :ascii_out =8'h29 ;
+		8'h4e :ascii_out =8'h5f ;
+		8'h55 :ascii_out =8'h2b ;
+		8'h5d :ascii_out =8'h7c ;
+		8'h66 :ascii_out =8'h08 ;
+		8'h0d :ascii_out =8'h09 ;
+		8'h15 :ascii_out =8'h51 ;
+		8'h1d :ascii_out =8'h57 ;
+		8'h24 :ascii_out =8'h45 ;
+		8'h2d :ascii_out =8'h52 ;
+		8'h2c :ascii_out =8'h54 ;
+		8'h35 :ascii_out =8'h59 ;
+		8'h3c :ascii_out =8'h55 ;
+		8'h43 :ascii_out =8'h49 ;
+		8'h44 :ascii_out =8'h4f ;
+		8'h4d :ascii_out =8'h50 ;
+		8'h54 :ascii_out =8'h7b ;
+		8'h5b :ascii_out =8'h7d ;
+		8'h5a :ascii_out =8'h0d ;
+		8'h58 :ascii_out =8'h14 ;
+		8'h1c :ascii_out =8'h41 ;
+		8'h1b :ascii_out =8'h53 ;
+		8'h23 :ascii_out =8'h44 ;
+		8'h2b :ascii_out =8'h46 ;
+		8'h34 :ascii_out =8'h47 ;
+		8'h33 :ascii_out =8'h48 ;
+		8'h3b :ascii_out =8'h4a ;
+		8'h42 :ascii_out =8'h4b ;
+		8'h4b :ascii_out =8'h4c ;
+		8'h4c :ascii_out =8'h3a ;
+		8'h52 :ascii_out =8'h22 ;
+		8'h12 :ascii_out =8'h10 ;
+		8'h1a :ascii_out =8'h5a ;
+		8'h22 :ascii_out =8'h58 ;
+		8'h21 :ascii_out =8'h43 ;
+		8'h2a :ascii_out =8'h56 ;
+		8'h32 :ascii_out =8'h42 ;
+		8'h31 :ascii_out =8'h4e ;
+		8'h3a :ascii_out =8'h4d ;
+		8'h41 :ascii_out =8'h3c ;
+		8'h49 :ascii_out =8'h3e ;
+		8'h4a :ascii_out =8'h3f ;
+		8'h59 :ascii_out =8'h10 ;
+		8'h14 :ascii_out =8'h11 ;
+		8'h11 :ascii_out =8'h12 ;
+		8'h29 :ascii_out =8'h20 ;
+		default : ascii_out =8'h00;
+	endcase
+	//shift按下时，大写锁定开启：大写转小写
+	if(capsLock&&ascii_out>=8'h41&&ascii_out<=8'h5A)
+		ascii_out = ascii_out + 32;
+	end
+	else//shift未按下
+	begin
+		case(data)
+		8'h01 :ascii_out =8'h5F ;//'_'
+		8'h76 :ascii_out =8'h1b ;
+		8'h05 :ascii_out =8'h70 ;
+		8'h06 :ascii_out =8'h71 ;
+		8'h04 :ascii_out =8'h72 ;
+		8'h0c :ascii_out =8'h73 ;
+		8'h03 :ascii_out =8'h74 ;
+		8'h0b :ascii_out =8'h75 ;
+		8'h83 :ascii_out =8'h76 ;
+		8'h0a :ascii_out =8'h77 ;
+		//8'h01 :ascii_out =8'h78 ;
+		8'h09 :ascii_out =8'h79 ;
+		8'h78 :ascii_out =8'h7a ;
+		8'h07 :ascii_out =8'h7b ;
+		8'h0e :ascii_out =8'h60 ;
+		8'h16 :ascii_out =8'h31 ;
+		8'h1e :ascii_out =8'h32 ;
+		8'h26 :ascii_out =8'h33 ;
+		8'h25 :ascii_out =8'h34 ;
+		8'h2e :ascii_out =8'h35 ;
+		8'h36 :ascii_out =8'h36 ;
+		8'h3d :ascii_out =8'h37 ;
+		8'h3e :ascii_out =8'h38 ;
+		8'h46 :ascii_out =8'h39 ;
+		8'h45 :ascii_out =8'h30 ;
+		8'h4e :ascii_out =8'h2d ;
+		8'h55 :ascii_out =8'h3d ;
+		8'h5d :ascii_out =8'h5c ;
+		8'h66 :ascii_out =8'h08 ;
+		8'h0d :ascii_out =8'h09 ;
+		8'h15 :ascii_out =8'h71 ;
+		8'h1d :ascii_out =8'h77 ;
+		8'h24 :ascii_out =8'h65 ;
+		8'h2d :ascii_out =8'h72 ;
+		8'h2c :ascii_out =8'h74 ;
+		8'h35 :ascii_out =8'h79 ;
+		8'h3c :ascii_out =8'h75 ;
+		8'h43 :ascii_out =8'h69 ;
+		8'h44 :ascii_out =8'h6f ;
+		8'h4d :ascii_out =8'h70 ;
+		8'h54 :ascii_out =8'h5b ;
+		8'h5b :ascii_out =8'h5d ;
+		8'h5a :ascii_out =8'h0d ;
+		8'h58 :ascii_out =8'h14 ;
+		8'h1c :ascii_out =8'h61 ;
+		8'h1b :ascii_out =8'h73 ;
+		8'h23 :ascii_out =8'h64 ;
+		8'h2b :ascii_out =8'h66 ;
+		8'h34 :ascii_out =8'h67 ;
+		8'h33 :ascii_out =8'h68 ;
+		8'h3b :ascii_out =8'h6a ;
+		8'h42 :ascii_out =8'h6b ;
+		8'h4b :ascii_out =8'h6c ;
+		8'h4c :ascii_out =8'h3b ;
+		8'h52 :ascii_out =8'h27 ;
+		8'h12 :ascii_out =8'h10 ;
+		8'h1a :ascii_out =8'h7a ;
+		8'h22 :ascii_out =8'h78 ;
+		8'h21 :ascii_out =8'h63 ;
+		8'h2a :ascii_out =8'h76 ;
+		8'h32 :ascii_out =8'h62 ;
+		8'h31 :ascii_out =8'h6e ;
+		8'h3a :ascii_out =8'h6d ;
+		8'h41 :ascii_out =8'h2c ;
+		8'h49 :ascii_out =8'h2e ;
+		8'h4a :ascii_out =8'h2f ;
+		8'h59 :ascii_out =8'h10 ;
+		8'h14 :ascii_out =8'h11 ;
+		8'h11 :ascii_out =8'h12 ;
+		8'h29 :ascii_out =8'h20 ;
+		default : ascii_out =8'h00;
+		endcase
+		//shift未按下时，大写锁定开启：小写转大写
+		if(capsLock&&ascii_out>=8'h61&&ascii_out<=8'h7A)
+			ascii_out = ascii_out -32;
+	end
+end
+endtask
+
+endmodule
+			

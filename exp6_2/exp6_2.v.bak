@@ -1,0 +1,13 @@
+module exp6_2(clk,HEX0,HEX1);
+	input clk;
+	output reg HEX0,HEX1;
+	reg [7:0] data_out;
+	integer i;
+	data_out=8'b00000000;
+	always @(posedge clk)
+	begin
+		if(data_out==8'b00000000)
+			data_out=8'b00000001;
+		
+	end
+endmodule

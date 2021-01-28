@@ -1,0 +1,22 @@
+module process(clk,we,inaddr,outaddr,din,dout);
+input clk;
+input we;
+input [3:0] inaddr;
+input [3:0] outaddr;
+input [7:0] din;
+output reg [7:0] dout;
+reg [7:0]lut[255:0];
+
+initial
+	begin
+	(*ram_init_file="scancode.mif"*) reg [7:0]lut[255:0];
+	end
+
+always @(posedge clk)
+begin
+	if(we)
+		ram[inaddr]<=din;
+	else
+		dout<=ram[outaddr];
+end
+endmodule

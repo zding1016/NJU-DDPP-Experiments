@@ -1,0 +1,3 @@
+module exp5_4_1(input CLK,output CLK_div_N);
+	div_N A(CLK.(CLK),CLK_div_N.(CLK_div_N));
+endmodule

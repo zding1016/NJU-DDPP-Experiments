@@ -1,0 +1,197 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1100mV 85C Model Setup 'clk'
+Slack : -24.589
+TNS   : -811.076
+
+Type  : Slow 1100mV 85C Model Setup 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : -7.874
+TNS   : -106646.333
+
+Type  : Slow 1100mV 85C Model Setup 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -7.016
+TNS   : -124.876
+
+Type  : Slow 1100mV 85C Model Setup 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -3.000
+TNS   : -75.948
+
+Type  : Slow 1100mV 85C Model Hold 'clk'
+Slack : 0.375
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : 0.580
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'exp8:Input|div_N:A|CLK_div_N'
+Slack : 0.794
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Hold 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : 0.841
+TNS   : 0.000
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'clk'
+Slack : -2.174
+TNS   : -144.370
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -0.471
+TNS   : -15.315
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : -0.394
+TNS   : -7714.651
+
+Type  : Slow 1100mV 85C Model Minimum Pulse Width 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -0.394
+TNS   : -21.956
+
+Type  : Slow 1100mV 0C Model Setup 'clk'
+Slack : -24.169
+TNS   : -794.983
+
+Type  : Slow 1100mV 0C Model Setup 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : -7.471
+TNS   : -100549.297
+
+Type  : Slow 1100mV 0C Model Setup 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -7.276
+TNS   : -129.742
+
+Type  : Slow 1100mV 0C Model Setup 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -2.855
+TNS   : -74.128
+
+Type  : Slow 1100mV 0C Model Hold 'clk'
+Slack : 0.114
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : 0.248
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'exp8:Input|div_N:A|CLK_div_N'
+Slack : 0.796
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Hold 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : 0.827
+TNS   : 0.000
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'clk'
+Slack : -2.174
+TNS   : -151.592
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -0.492
+TNS   : -15.401
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : -0.394
+TNS   : -7834.378
+
+Type  : Slow 1100mV 0C Model Minimum Pulse Width 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -0.394
+TNS   : -21.631
+
+Type  : Fast 1100mV 85C Model Setup 'clk'
+Slack : -14.284
+TNS   : -414.035
+
+Type  : Fast 1100mV 85C Model Setup 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : -4.824
+TNS   : -63916.469
+
+Type  : Fast 1100mV 85C Model Setup 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -3.430
+TNS   : -63.007
+
+Type  : Fast 1100mV 85C Model Setup 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -1.485
+TNS   : -36.359
+
+Type  : Fast 1100mV 85C Model Hold 'clk'
+Slack : 0.182
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : 0.275
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'exp8:Input|div_N:A|CLK_div_N'
+Slack : 0.409
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Hold 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : 0.428
+TNS   : 0.000
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'clk'
+Slack : -2.174
+TNS   : -68.985
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -0.222
+TNS   : -2.734
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -0.106
+TNS   : -2.883
+
+Type  : Fast 1100mV 85C Model Minimum Pulse Width 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : 0.128
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Setup 'clk'
+Slack : -12.791
+TNS   : -363.035
+
+Type  : Fast 1100mV 0C Model Setup 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : -4.062
+TNS   : -53377.201
+
+Type  : Fast 1100mV 0C Model Setup 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -3.362
+TNS   : -61.010
+
+Type  : Fast 1100mV 0C Model Setup 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -1.288
+TNS   : -31.844
+
+Type  : Fast 1100mV 0C Model Hold 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : -0.047
+TNS   : -0.861
+
+Type  : Fast 1100mV 0C Model Hold 'clk'
+Slack : -0.031
+TNS   : -0.031
+
+Type  : Fast 1100mV 0C Model Hold 'exp8:Input|div_N:A|CLK_div_N'
+Slack : 0.377
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Hold 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : 0.392
+TNS   : 0.000
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'clk'
+Slack : -2.174
+TNS   : -68.858
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'exp8:Input|div_N:A|CLK_div_N'
+Slack : -0.166
+TNS   : -1.773
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'exp9_2:OUT_PUT|clkgen:my_vgaclk|clkout'
+Slack : -0.064
+TNS   : -1.636
+
+Type  : Fast 1100mV 0C Model Minimum Pulse Width 'exp9_2:OUT_PUT|div_clk:M|CLK_div_N'
+Slack : 0.155
+TNS   : 0.000
+
+------------------------------------------------------------

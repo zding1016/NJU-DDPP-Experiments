@@ -1,0 +1,161 @@
+module counter(CLK,HEX0, HEX1,HEX2,HEX3,HEX4,HEX5);
+ input CLK;
+ output reg [6:0] HEX0;
+ output reg [6:0] HEX1;
+ output reg [6:0] HEX2;
+ output reg [6:0] HEX3;
+ output reg [6:0] HEX4;
+ output reg [6:0] HEX5;
+ reg [7:0] second=0;
+ reg [7:0] minute=0;
+ reg [7:0] hour=0;
+ always @ (posedge CLK)
+	begin
+		second<=second+1;
+		if(hour==23&&minute==59&&second==59)
+		begin
+			hour<=0;
+			minute<=0;
+			second<=0;
+		end
+		else if(minute==59&&second==59)
+		begin
+			hour<=hour+1;
+			minute<=0;
+			second<=0;
+		end
+		else if(second==59)
+		begin
+			minute<=minute+1;
+			second<=0;
+		end
+	end
+ always @(*)
+ begin
+			if(second%10==0)
+				HEX0=7'b1000000;
+			else if(count%10==1)
+				HEX0=7'b1111001;
+			else if(second%10==2)
+				HEX0=7'b0100100;	
+			else if(second%10==3)
+				HEX0=7'b0110000;
+			else if(second%10==4)
+				HEX0=7'b0011001;
+			else if(second%10==5)
+				HEX0=7'b0010010;
+			else if(second%10==6)
+				HEX0=7'b0000010;	
+			else if(second%10==7)
+				HEX0=7'b1111000;	
+			else if(second%10==8)
+				HEX0=7'b0000000;
+			else if(second%10==9)
+				HEX0=7'b0010000;
+				
+			if(second/10==0)
+				HEX1=7'b1000000;
+			else if(second/10==1)
+				HEX1=7'b1111001;
+			else if(second/10==2)
+				HEX1=7'b0100100;	
+			else if(second/10==3)
+				HEX1=7'b0110000;
+			else if(second/10==4)
+				HEX1=7'b0011001;
+			else if(second/10==5)
+				HEX1=7'b0010010;
+			else if(second/10==6)
+				HEX1=7'b0000010;	
+			else if(second/10==7)
+				HEX1=7'b1111000;	
+			else if(second/10==8)
+				HEX1=7'b0000000;
+			else if(second/10==9)
+				HEX1=7'b0010000;		
+				
+			if(minute%10==0)
+				HEX2=7'b1000000;
+			else if(count%10==1)
+				HEX2=7'b1111001;
+			else if(minute%10==2)
+				HEX2=7'b0100100;	
+			else if(minute%10==3)
+				HEX2=7'b0110000;
+			else if(minute%10==4)
+				HEX2=7'b0011001;
+			else if(minute%10==5)
+				HEX2=7'b0010010;
+			else if(minute%10==6)
+				HEX2=7'b0000010;	
+			else if(minute%10==7)
+				HEX2=7'b1111000;	
+			else if(minute%10==8)
+				HEX2=7'b0000000;
+			else if(minute%10==9)
+				HEX2=7'b0010000;
+				
+			if(minute/10==0)
+				HEX3=7'b1000000;
+			else if(minute/10==1)
+				HEX3=7'b1111001;
+			else if(minute/10==2)
+				HEX3=7'b0100100;	
+			else if(minute/10==3)
+				HEX3=7'b0110000;
+			else if(minute/10==4)
+				HEX3=7'b0011001;
+			else if(minute/10==5)
+				HEX3=7'b0010010;
+			else if(minute/10==6)
+				HEX3=7'b0000010;	
+			else if(minute/10==7)
+				HEX3=7'b1111000;	
+			else if(minute/10==8)
+				HEX3=7'b0000000;
+			else if(minute/10==9)
+				HEX3=7'b0010000;		
+			
+			if(hour%10==0)
+				HEX4=7'b1000000;
+			else if(hour%10==1)
+				HEX4=7'b1111001;
+			else if(hour%10==2)
+				HEX4=7'b0100100;	
+			else if(hour%10==3)
+				HEX4=7'b0110000;
+			else if(hour%10==4)
+				HEX4=7'b0011001;
+			else if(hour%10==5)
+				HEX4=7'b0010010;
+			else if(hour%10==6)
+				HEX4=7'b0000010;	
+			else if(hour%10==7)
+				HEX4=7'b1111000;	
+			else if(hour%10==8)
+				HEX4=7'b0000000;
+			else if(hour%10==9)
+				HEX4=7'b0010000;
+				
+			if(hour/10==0)
+				HEX5=7'b1000000;
+			else if(hour/10==1)
+				HEX5=7'b1111001;
+			else if(hour/10==2)
+				HEX5=7'b0100100;	
+			else if(hour/10==3)
+				HEX5=7'b0110000;
+			else if(hour/10==4)
+				HEX5=7'b0011001;
+			else if(hour/10==5)
+				HEX5=7'b0010010;
+			else if(hour/10==6)
+				HEX5=7'b0000010;	
+			else if(hour/10==7)
+				HEX5=7'b1111000;	
+			else if(hour/10==8)
+				HEX5=7'b0000000;
+			else if(hour/10==9)
+				HEX5=7'b0010000;			
+ end
+endmodule

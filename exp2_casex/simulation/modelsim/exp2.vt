@@ -1,0 +1,72 @@
+// Copyright (C) 2017  Intel Corporation. All rights reserved.
+// Your use of Intel Corporation's design tools, logic functions 
+// and other software and tools, and its AMPP partner logic 
+// functions, and any output files from any of the foregoing 
+// (including device programming or simulation files), and any 
+// associated documentation or information are expressly subject 
+// to the terms and conditions of the Intel Program License 
+// Subscription Agreement, the Intel Quartus Prime License Agreement,
+// the Intel FPGA IP License Agreement, or other applicable license
+// agreement, including, without limitation, that your use is for
+// the sole purpose of programming logic devices manufactured by
+// Intel and sold by Intel or its authorized distributors.  Please
+// refer to the applicable agreement for further details.
+
+// *****************************************************************************
+// This file contains a Verilog test bench template that is freely editable to  
+// suit user's needs .Comments are provided in each section to help the user    
+// fill out necessary details.                                                  
+// *****************************************************************************
+// Generated on "09/13/2020 14:18:27"
+                                                                                
+// Verilog Test Bench template for design : exp2
+// 
+// Simulation tool : ModelSim-Altera (Verilog)
+// 
+
+`timescale 10 ns/ 1 ps
+module exp2_vlg_tst();
+reg eachvec;
+reg [7:0] x;                                            
+wire [2:0]  y;
+wire [6:0]  z0;
+wire [6:0]  z1;
+wire [6:0]  z2;
+wire [6:0]  z3;
+wire [6:0]  f;                         
+exp2 i1 (
+	.x(x),
+	.y(y),
+	.z0(z0),
+	.z1(z1),
+	.z2(z2),
+	.z3(z3),
+	.f(f)
+);
+initial                                                
+begin                                                  
+	x=8'b00000000;#10;
+	x=8'b00000010;#10;
+	x=8'b00000100;#10;
+	x=8'b00001000;#10;
+	x=8'b00010000;#10;
+	x=8'b00100000;#10;
+	x=8'b01000000;#10;
+	x=8'b10000000;#10;
+	x=8'b00010011;#10;
+	x=8'b10100001;#10;
+	x=8'b01001000;#10;
+	x=8'b10100010;#10;
+end                                                    
+always                                                 
+// optional sensitivity list                           
+// @(event1 or event2 or .... eventn)                  
+begin                                                  
+// code executes for every event on sensitivity list   
+// insert code here --> begin                          
+                                                       
+@eachvec;                                              
+// --> end                                             
+end                                                    
+endmodule
+

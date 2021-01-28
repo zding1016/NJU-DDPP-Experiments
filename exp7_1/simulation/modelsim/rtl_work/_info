@@ -1,0 +1,98 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/44254/Desktop/digit_design_exp/exp7_1/simulation/modelsim
+vexp7_1
+!s110 1602813251
+!i10b 1
+!s100 emVP^Z6iOI?MIQ6l=eBfK2
+IM38OY3iUQDe0TX;][oKoY1
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1602492188
+8C:/Users/44254/Desktop/digit_design_exp/exp7_1/exp7_1.v
+FC:/Users/44254/Desktop/digit_design_exp/exp7_1/exp7_1.v
+L0 1
+Z2 OV;L;10.5b;63
+r1
+!s85 0
+31
+!s108 1602813251.000000
+!s107 C:/Users/44254/Desktop/digit_design_exp/exp7_1/exp7_1.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/44254/Desktop/digit_design_exp/exp7_1|C:/Users/44254/Desktop/digit_design_exp/exp7_1/exp7_1.v|
+!i113 1
+Z3 o-vlog01compat -work work
+Z4 !s92 -vlog01compat -work work +incdir+C:/Users/44254/Desktop/digit_design_exp/exp7_1
+Z5 tCvgOpt 0
+vexp7_1_vlg_tst
+Z6 !s110 1602813252
+!i10b 1
+!s100 4lc3lI:WTYnR@e:6;5]Ao3
+IkZ4=6l=>EWg[62z;LQNBB3
+R1
+R0
+w1602491363
+8C:/Users/44254/Desktop/digit_design_exp/exp7_1/simulation/modelsim/exp7_1.vt
+FC:/Users/44254/Desktop/digit_design_exp/exp7_1/simulation/modelsim/exp7_1.vt
+L0 28
+R2
+r1
+!s85 0
+31
+Z7 !s108 1602813252.000000
+!s107 C:/Users/44254/Desktop/digit_design_exp/exp7_1/simulation/modelsim/exp7_1.vt|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/44254/Desktop/digit_design_exp/exp7_1/simulation/modelsim|C:/Users/44254/Desktop/digit_design_exp/exp7_1/simulation/modelsim/exp7_1.vt|
+!i113 1
+R3
+!s92 -vlog01compat -work work +incdir+C:/Users/44254/Desktop/digit_design_exp/exp7_1/simulation/modelsim
+R5
+vram1
+R6
+!i10b 1
+!s100 M6B;BW0A^CYz3zlI?0X_:1
+I3HRSRzam;NFm=JY;YfMoR1
+R1
+R0
+w1602487007
+8C:/Users/44254/Desktop/digit_design_exp/exp7_1/ram1.v
+FC:/Users/44254/Desktop/digit_design_exp/exp7_1/ram1.v
+L0 1
+R2
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/44254/Desktop/digit_design_exp/exp7_1/ram1.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/44254/Desktop/digit_design_exp/exp7_1|C:/Users/44254/Desktop/digit_design_exp/exp7_1/ram1.v|
+!i113 1
+R3
+R4
+R5
+vram2port
+R6
+!i10b 1
+!s100 ]CE0i>NBl[mBNWW`AYkZL1
+IKfURh04H32OFEie<ho6:13
+R1
+R0
+w1602488144
+8C:/Users/44254/Desktop/digit_design_exp/exp7_1/ram2port.v
+FC:/Users/44254/Desktop/digit_design_exp/exp7_1/ram2port.v
+L0 39
+R2
+r1
+!s85 0
+31
+R7
+!s107 C:/Users/44254/Desktop/digit_design_exp/exp7_1/ram2port.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/44254/Desktop/digit_design_exp/exp7_1|C:/Users/44254/Desktop/digit_design_exp/exp7_1/ram2port.v|
+!i113 1
+R3
+R4
+R5

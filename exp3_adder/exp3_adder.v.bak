@@ -1,0 +1,31 @@
+module exp3_adder(A,B,CIN,RESULT,CARRY,OVERFLOW,ZERO)
+	input [3:0] A;
+	input [3:0] B;
+	input CIN;
+	output reg [3:0] RESULT;
+	output reg CARRY,OVERFLOW,ZERO;
+	reg [3:0] AC;
+	reg [3:0] BC;
+	always @(*)
+	begin
+		if(CIN==1)
+			begin
+			{CARRY,RESULT}=A+B;
+			OVERFLOW=(A[3]==B[3])&&(RESULT[3]==A[3]);
+			if(RESULT==0)
+				ZERO=1;
+			else
+				ZERO=0;
+			end
+		else
+			begin
+			{CARRY,RESULT}=A+(~B+1);
+			OVERFLOW=(A[3]==(~B+1)[3])&&(RESULT[3]==A[3]);
+			if(RESULT==0)
+				ZERO=1;
+			else
+				ZERO=0;
+			end
+		end
+
+endmodule

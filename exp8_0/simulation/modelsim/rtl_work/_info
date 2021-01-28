@@ -1,0 +1,54 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/44254/Desktop/digit_design_exp/exp8_0/simulation/modelsim
+vexp8_0
+Z1 !s110 1604459155
+!i10b 1
+!s100 JQiPYAZX9[YjeVLcLl6250
+I;ncoG1M:5fL=gRdbL@2aB1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1604457687
+8C:/Users/44254/Desktop/digit_design_exp/exp8_0/exp8_0.v
+FC:/Users/44254/Desktop/digit_design_exp/exp8_0/exp8_0.v
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1604459155.000000
+!s107 C:/Users/44254/Desktop/digit_design_exp/exp8_0/exp8_0.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/44254/Desktop/digit_design_exp/exp8_0|C:/Users/44254/Desktop/digit_design_exp/exp8_0/exp8_0.v|
+!i113 1
+Z5 o-vlog01compat -work work
+!s92 -vlog01compat -work work +incdir+C:/Users/44254/Desktop/digit_design_exp/exp8_0
+Z6 tCvgOpt 0
+vexp8_0_vlg_tst
+R1
+!i10b 1
+!s100 e0GPamJe35ZoQ:;ZjYHHG0
+IZPFSE9T1aS54HKRS2>Lnm1
+R2
+R0
+w1604459134
+8C:/Users/44254/Desktop/digit_design_exp/exp8_0/simulation/modelsim/exp8_0.vt
+FC:/Users/44254/Desktop/digit_design_exp/exp8_0/simulation/modelsim/exp8_0.vt
+L0 28
+R3
+r1
+!s85 0
+31
+R4
+!s107 C:/Users/44254/Desktop/digit_design_exp/exp8_0/simulation/modelsim/exp8_0.vt|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/44254/Desktop/digit_design_exp/exp8_0/simulation/modelsim|C:/Users/44254/Desktop/digit_design_exp/exp8_0/simulation/modelsim/exp8_0.vt|
+!i113 1
+R5
+!s92 -vlog01compat -work work +incdir+C:/Users/44254/Desktop/digit_design_exp/exp8_0/simulation/modelsim
+R6

@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at div_N.v(4): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp5_4_1/div_N.v Line: 4
+Warning (10268): Verilog HDL information at counter.v(10): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp5_4_1/counter.v Line: 10

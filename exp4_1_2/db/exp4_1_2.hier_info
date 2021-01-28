@@ -1,0 +1,10 @@
+|exp4_1_2
+clk => out_lock2~reg0.CLK
+clk => out_lock1~reg0.CLK
+in_data => out_lock1~reg0.DATAIN
+en => out_lock2~reg0.ENA
+en => out_lock1~reg0.ENA
+out_lock1 <= out_lock1~reg0.DB_MAX_OUTPUT_PORT_TYPE
+out_lock2 <= out_lock2~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

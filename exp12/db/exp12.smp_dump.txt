@@ -1,0 +1,15 @@
+
+State Machine - |exp12|I2C_Audio_Config:myconfig|mi2c_state
+Name mi2c_state.11 mi2c_state.10 mi2c_state.01 mi2c_state.00 
+mi2c_state.00 0 0 0 0 
+mi2c_state.01 0 0 1 1 
+mi2c_state.10 0 1 0 1 
+mi2c_state.11 1 0 0 1 
+
+State Machine - |exp12|GamePlaying:my_GamePlaying|Stage
+Name Stage.KEYCLEAN Stage.CREATNEW Stage.CREATNEW_CLEAN Stage.0000 Stage.RESETGAME 
+Stage.0000 0 0 0 0 0 
+Stage.CREATNEW_CLEAN 0 0 1 1 0 
+Stage.CREATNEW 0 1 0 1 0 
+Stage.KEYCLEAN 1 0 0 1 0 
+Stage.RESETGAME 0 0 0 1 1 

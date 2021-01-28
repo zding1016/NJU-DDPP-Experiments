@@ -1,0 +1,137 @@
+Flow report for exp12
+Wed Dec 23 17:40:54 2020
+Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------------+
+; Flow Summary                                                                  ;
++---------------------------------+---------------------------------------------+
+; Flow Status                     ; Successful - Wed Dec 23 17:40:43 2020       ;
+; Quartus Prime Version           ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
+; Revision Name                   ; exp12                                       ;
+; Top-level Entity Name           ; exp12                                       ;
+; Family                          ; Cyclone V                                   ;
+; Device                          ; 5CSXFC6D6F31C6                              ;
+; Timing Models                   ; Final                                       ;
+; Logic utilization (in ALMs)     ; 1,631 / 41,910 ( 4 % )                      ;
+; Total registers                 ; 428                                         ;
+; Total pins                      ; 111 / 499 ( 22 % )                          ;
+; Total virtual pins              ; 0                                           ;
+; Total block memory bits         ; 161,392 / 5,662,720 ( 3 % )                 ;
+; Total DSP Blocks                ; 4 / 112 ( 4 % )                             ;
+; Total HSSI RX PCSs              ; 0 / 9 ( 0 % )                               ;
+; Total HSSI PMA RX Deserializers ; 0 / 9 ( 0 % )                               ;
+; Total HSSI TX PCSs              ; 0 / 9 ( 0 % )                               ;
+; Total HSSI PMA TX Serializers   ; 0 / 9 ( 0 % )                               ;
+; Total PLLs                      ; 1 / 15 ( 7 % )                              ;
+; Total DLLs                      ; 0 / 4 ( 0 % )                               ;
++---------------------------------+---------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 12/23/2020 17:39:08 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; exp12               ;
++-------------------+---------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                        ;
++-------------------------------------+----------------------------------------+---------------+-------------+------------+
+; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id ;
++-------------------------------------+----------------------------------------+---------------+-------------+------------+
+; COMPILER_SIGNATURE_ID               ; 963354579176.160871634723072           ; --            ; --          ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --          ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --          ; --         ;
+; MISC_FILE                           ; all_panels_bb.v                        ; --            ; --          ; --         ;
+; MISC_FILE                           ; audio_time.cmp                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; audio_time_sim/audio_time.vo           ; --            ; --          ; --         ;
+; MISC_FILE                           ; background_music_bb.v                  ; --            ; --          ; --         ;
+; MISC_FILE                           ; randASCII_bb.v                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; rand64_bb.v                            ; --            ; --          ; --         ;
+; MISC_FILE                           ; rand8Bits_bb.v                         ; --            ; --          ; --         ;
+; MISC_FILE                           ; Game_UI_Info_bb.v                      ; --            ; --          ; --         ;
+; MISC_FILE                           ; GameASCII_bb.v                         ; --            ; --          ; --         ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; --          ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --          ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --         ;
+; SPD_FILE                            ; audio_time.spd                         ; --            ; --          ; --         ;
+; SYNTHESIS_ONLY_QIP                  ; On                                     ; --            ; --          ; --         ;
++-------------------------------------+----------------------------------------+---------------+-------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:00:25     ; 1.0                     ; 4883 MB             ; 00:00:38                           ;
+; Fitter                    ; 00:00:59     ; 1.1                     ; 6771 MB             ; 00:02:11                           ;
+; Assembler                 ; 00:00:08     ; 1.0                     ; 4861 MB             ; 00:00:08                           ;
+; TimeQuest Timing Analyzer ; 00:00:10     ; 1.6                     ; 5228 MB             ; 00:00:16                           ;
+; Total                     ; 00:01:42     ; --                      ; --                  ; 00:03:13                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++-----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                         ;
++---------------------------+------------------+------------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
++---------------------------+------------------+------------+------------+----------------+
+; Analysis & Synthesis      ; DESKTOP-NNDPOLF  ; Windows 10 ; 10.0       ; x86_64         ;
+; Fitter                    ; DESKTOP-NNDPOLF  ; Windows 10 ; 10.0       ; x86_64         ;
+; Assembler                 ; DESKTOP-NNDPOLF  ; Windows 10 ; 10.0       ; x86_64         ;
+; TimeQuest Timing Analyzer ; DESKTOP-NNDPOLF  ; Windows 10 ; 10.0       ; x86_64         ;
++---------------------------+------------------+------------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off exp12 -c exp12
+quartus_fit --read_settings_files=off --write_settings_files=off exp12 -c exp12
+quartus_asm --read_settings_files=off --write_settings_files=off exp12 -c exp12
+quartus_sta exp12 -c exp12
+
+
+
