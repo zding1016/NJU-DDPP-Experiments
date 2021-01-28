@@ -1,6 +1,0 @@
-module exp5_4_2(input CLK, output [6:0] HEX0,output [6:0] HEX1,output [6:0] HEX2,
-output [6:0] HEX3,output [6:0] HEX4,output [6:0] HEX5);
-	wire CLK_div;
-	div_N A (CLK,CLK_div);
-	counter B (CLK_div,HEX0,HEX1,HEX2,HEX3,HEX4,HEX5);
-endmodule

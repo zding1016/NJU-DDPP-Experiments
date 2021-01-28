@@ -1,2 +1,0 @@
-Warning (10268): Verilog HDL information at synchro.v(7): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp4_2/synchro.v Line: 7
-Warning (10268): Verilog HDL information at asynchro.v(7): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp4_2/asynchro.v Line: 7
