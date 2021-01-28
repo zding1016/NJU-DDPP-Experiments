@@ -1,4 +1,0 @@
-Warning (10268): Verilog HDL information at I2C_Audio_Config.v(68): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp10/I2C_Audio_Config.v Line: 68
-Info (10281): Verilog HDL Declaration information at exp10.v(16): object "HEX0" differs only in case from object "hex0" in the same scope File: C:/Users/44254/Desktop/digit_design_exp/exp10/exp10.v Line: 16
-Info (10281): Verilog HDL Declaration information at exp10.v(17): object "HEX1" differs only in case from object "hex1" in the same scope File: C:/Users/44254/Desktop/digit_design_exp/exp10/exp10.v Line: 17
-Warning (10268): Verilog HDL information at div_N.v(4): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp10/div_N.v Line: 4

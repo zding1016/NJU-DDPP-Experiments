@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<simPackage>
- <file path="audio_time_sim/audio_time.vo" type="VERILOG" />
- <topLevel name="audio_time" />
- <deviceFamily name="cyclonev" />
-</simPackage>

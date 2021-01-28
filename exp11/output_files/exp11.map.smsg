@@ -1,7 +1,0 @@
-Info (10281): Verilog HDL Declaration information at exp9_2.v(8): object "vga_r" differs only in case from object "VGA_R" in the same scope File: C:/Users/44254/Desktop/digit_design_exp/exp11/exp9_2.v Line: 8
-Info (10281): Verilog HDL Declaration information at exp9_2.v(9): object "vga_g" differs only in case from object "VGA_G" in the same scope File: C:/Users/44254/Desktop/digit_design_exp/exp11/exp9_2.v Line: 9
-Info (10281): Verilog HDL Declaration information at exp9_2.v(10): object "vga_b" differs only in case from object "VGA_B" in the same scope File: C:/Users/44254/Desktop/digit_design_exp/exp11/exp9_2.v Line: 10
-Warning (10268): Verilog HDL information at display_pic.v(120): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp11/display_pic.v Line: 120
-Warning (10268): Verilog HDL information at exp8.v(51): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp11/exp8.v Line: 51
-Warning (10268): Verilog HDL information at div_N.v(4): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp11/div_N.v Line: 4
-Warning (10268): Verilog HDL information at div_clk.v(4): always construct contains both blocking and non-blocking assignments File: C:/Users/44254/Desktop/digit_design_exp/exp11/div_clk.v Line: 4
