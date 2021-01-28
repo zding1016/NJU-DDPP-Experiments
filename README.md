@@ -1,2 +1,2 @@
-# -star-NJU-DDPP-Experiments
+# 南京大学数电实验
 仅作参考，在此基础上独立思考，禁止抄袭！
